@@ -5,19 +5,108 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
     <title>DEPTH FIRST SEARCH</title>
-    <script src="../_lib/p5.min.js"></script>
-    <script src="../_lib/addons/p5.dom.min.js"></script>
+    <script src="p5.min.js"></script>
+    <script src="p5.dom.min.js"></script>
     <script src="sketch.js"></script>
+
+    <style>
+    .row {
+      background-color: #e3e3e3;
+      border-radius: 15px;
+    }
+    .col-md-10 {
+      background-color: #f5f3f3;  
+    }
+    </style>
+
   </head>
 
-  <body>
-    <h1 align='CENTER'>DEPTH FIRST SEARCH</h1>
+  <body>    
+    <!--Nav bar-->
+    <nav class="navbar navbar-dark bg-dark">
+    <header class="navbar navbar-dark flex-column flex-md-row bd-navbar">
+    <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+    </ul>
+    <div class="navbar-nav-scroll">
+      <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+      <a class="nav-link" href="#"><img src="logo1.png"><font color="white">
+      &nbsp;&nbsp;&nbsp;LUCID SIMULATIONS&nbsp;&nbsp;&nbsp;</font></a>
+      </li>
+      </ul>
+    </div>
+    </div>
+    </header>
+    </nav>
+
     <div id="sketch-holder" ,class="container">
     </div>
 
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-1"><p>
+        </p>
+
+        </div>
+        <div class="col-10 "><br>
+        <h3 align="center">GRAPH TRAVERSALS</h3>
+        <p>
+          The Depth First Search(DFS) algorithm is a recursive algorithm that uses the idea of backtracking. It involves exhaustive searches of all the nodes by going ahead, if possible, else by backtracking.<br><br>
+
+          Here, the word backtrack means that when you are moving forward and there are no more nodes along the current path, you move backwards on the same path to find nodes to traverse. All the nodes will be visited on the current path till all the unvisited nodes have been traversed after which the next path will be selected.<br><br>
+
+          This recursive nature of DFS can be implemented using stacks. The basic idea is as follows:<br>
+          Pick a starting node and push all its adjacent nodes into a stack.<br>
+          Pop a node from stack to select the next node to visit and push all its adjacent nodes into a stack.<br>
+          Repeat this process until the stack is empty. However, ensure that the nodes that are visited are marked. This will prevent you from visiting the same node more than once. If you do not mark the nodes that are visited and you visit the same node more than once, you may end up in an infinite loop.<br>
+        </p>
+        <p align="center">
+          <img src="img1.png">
+        </p>
+        <p>
+          <br><h5>DFS Pseudocode</h5><br>
+          DFS-iterative (G, s): //Where G is graph and s is source vertex<br>
+          let S be stack<br>
+          S.push( s )            //Inserting s in stack <br>
+          mark s as visited.<br><br>
+          while ( S is not empty):<br>
+          //Pop a vertex from stack to visit next<br>
+          v  =  S.top( )<br>
+          S.pop( )<br><br>
+          //Push all the neighbours of v in stack that are not visited<br>
+          for all neighbours w of v in Graph G:<br>
+          &nbsp;&nbsp;&nbsp;if w is not visited :<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S.push( w )     <br>    
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mark w as visited<br><br>
+          DFS-recursive(G, s):<br>
+          mark s as visited<br>
+          for all neighbours w of s in Graph G:<br>
+          &nbsp;&nbsp;&nbsp;if w is not visited:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DFS-recursive(G, w)<br>
+        </p>
+        <p>
+          <h6>Simulation assumptions and constraints:-</h6>
+          <ul>
+            <li>Maximum of 10 nodes can be placed.</li>
+            <li>Naming of node is done in ascending order of the nodes placed.</li>
+            <li>0 is assumed to be the root node.</li>
+            <li>If nodes are not connected with 0, simulation will halt traversing only the root node.</li>
+          </ul>
+        </p>
+        <p align="right">Theory source : www.hackerearth.com</p>
+        </div>
+        <div class="col-1">
+        
+        </div>
+      </div>
+      <hr>
+    </div>
+
+
+  <!--div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
   </ol>
@@ -26,7 +115,7 @@
       <img class="d-block w-100" src="C:\Users\shivang\Documents\p5js projects\DFS\test1.jpg" alt="First slide">
     </div>
   </div>
-</div>
+  </div-->
 
   </body>
 </html>
