@@ -3,7 +3,7 @@
 var b_place,i_v1,i_v2,b_adde,b_edg,b_reset,b_nstep,b_pstep;
 var totnods,maxnods,totedg,maxedg,count,step;
 var bkcol='#b3d9ff',nodcol='#0080ff';
-var canvascol='#d2e4f7',canvasx=30,canvasy=70,canvasw=800,canvash=500;
+var canvascol='#d2e4f7',canvasx=30,canvasy=50,canvasw,canvash=480;
 var mainarr,disparr,msg=[],msgflag,place;
 var dfsarr,stack,visited;
 var vhl,shl,edghl,next,nexttot;
@@ -20,8 +20,13 @@ function setup(){
   var mycv=createCanvas(window.innerWidth,window.innerHeight-80);
   mycv.parent('sketch-holder');
 
+  b_place=createButton('PLACE NODES');
+  b_place.attribute('class','btn btn-light');
+  b_place.position(canvasx,canvasy+canvash+150);
+  b_place.mousePressed(nodesplaced);
+
   i_v1=createInput();
-  i_v1.position(canvasw+canvasx+canvasx,300+canvasy);
+  i_v1.position(b_place.x+b_place.width+20,b_place.y);
   i_v2=createInput();
   i_v2.position(i_v1.x+i_v1.width,i_v1.y);
 
@@ -29,18 +34,13 @@ function setup(){
   b_adde.position(i_v2.x+i_v2.width,i_v2.y);
   b_adde.mousePressed(addedge);
 
-  b_edg=createButton('DONE');
+  b_edg=createButton('START');
   b_edg.attribute('class','btn btn-light');
-  b_edg.position(b_adde.x,b_adde.y+b_adde.height+20);
+  b_edg.position(b_adde.x+b_adde.width+20,b_adde.y);
   b_edg.mousePressed(defedgs);
 
-  b_place=createButton('PLACE');
-  b_place.attribute('class','btn btn-light');
-  b_place.position(1400,120+canvasy);
-  b_place.mousePressed(nodesplaced);
-
   b_reset=createButton('CLEAR');
-  b_reset.position(canvasx+canvasw+50,canvasy+canvash+80);
+  b_reset.position(b_edg.x+b_edg.width+300,b_edg.y+50);
   b_reset.mousePressed(reset);
 
   b_pstep=createButton('STEP BACK');
@@ -62,34 +62,29 @@ function draw(){
   textStyle(BOLD);
   textAlign(CENTER,CENTER);
   text('DEPTH FIRST SEARCH',window.innerWidth/2,40);
+
+  fill(canvascol);
+  rect(canvasx,canvasy+30,canvasw,canvash,20);
   
   textSize(18);
   textStyle(NORMAL);
   textAlign(LEFT,CENTER);
   
-  text('-\tCLICK MOUSE TO CREATE A NODE\n\tPRESS "PLACE" AFTER ALL NODES ARE ADDED ',canvasw+canvasx+canvasx,50+canvasy);
-  text('-\tADD EDGES. PRESS "DONE" AFTER ALL EDGES ARE ADDED\n- 0 IS THE ROOT NODE\n- LOWER NODE NUMBER HAS HIGHER PRIORITY',canvasw+canvasx+canvasx,130+canvasy);
-  text('NODE 1',canvasw+canvasx+canvasx,190+canvasy);
-  text('NODE 2',canvasw+canvasx+canvasx+225,190+canvasy);
-  fill(255);
-  text(msg[msgflag],canvasw+canvasx+canvasx,300+canvasy);
   fill(0);
+  text(msg[msgflag],canvasx,canvash+canvasy+125);
   
-  text('VISITED NODE: ',canvasw+canvasx+canvasx,360+canvasy);
+  text('VISITED NODE: ',b_edg.x+b_edg.width+37,canvash+canvasy+80);
   fill('#242144');
-  ellipse(canvasw+canvasx+210,360+canvasy,40,40);
+  ellipse(900,610,35,35);
   fill(nodcol);
-  ellipse(canvasw+canvasx+210,360+canvasy,28,28);
+  ellipse(900,610,23,23);
   
   fill(0);
   if(shl[step].length==0)
-    text('STACK: '+shl[step],canvasw+canvasx+canvasx,400+canvasy);
+    text('STACK: '+shl[step],b_reset.x,canvasy+canvash+60);
   else
-    text('STACK: '+shl[step]+' <-- top',canvasw+canvasx+canvasx,400+canvasy);
-  text('DFS: '+vhl[step],canvasw+82,430+canvasy);
-  
-  fill(canvascol);
-  rect(canvasx,canvasy+30,canvasw,canvash,20);
+    text('STACK: '+shl[step]+' <-- top',b_reset.x,canvasy+canvash+60);
+  text('DFS: '+vhl[step],b_reset.x+23,canvasy+canvash+88);
 
   if(placecondition()){
     fill(nodcol);
@@ -301,4 +296,6 @@ function reset(){
 
   textSize(18);
   textStyle(NORMAL);
+
+  canvasw=window.innerWidth-2.5*canvasx;
 }
